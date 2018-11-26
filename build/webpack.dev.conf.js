@@ -18,7 +18,7 @@ var seller = appData.seller
 var goods = appData.goods
 var ratings = appData.ratings
 var apiRoutes = express.Router()
-// 暴露路由
+// 2.暴露路由
 app.use('/api',apiRoutes)
 
 const HOST = process.env.HOST
@@ -54,7 +54,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    // 2.请求的接口数据
+    // 3.请求的接口数据
     before(app) {
       app.get('/api/seller', (req, res) => {
         res.json({
