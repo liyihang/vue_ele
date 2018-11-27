@@ -1,6 +1,6 @@
  <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab">
       <div class="tab-item">
         <router-link to="/goods">
@@ -28,6 +28,7 @@ import header from './components/header/header'
 import goods from './components/goods/goods'
 import ratings from './components/ratings/ratings'
 import seller from './components/seller/seller'
+const ERROR = 0
 export default {
   data () {
     return {
@@ -35,9 +36,11 @@ export default {
     }
   },
   created () {
-    console.log(this.axios)
     this.axios.get('/api/seller').then((response) => {
-      console.log(response)
+      response = response.data
+      if (response.errno === ERROR) {
+        this.seller = response.data
+      }
     })
   },
   components: {
@@ -50,14 +53,7 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 #app .tab {
   display: flex;
   widows: 100%;
