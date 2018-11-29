@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'ele';
-  src:  url('fonts/ele.eot?baaho');
-  src:  url('fonts/ele.eot?baaho#iefix') format('embedded-opentype'),
-    url('fonts/ele.ttf?baaho') format('truetype'),
-    url('fonts/ele.woff?baaho') format('woff'),
-    url('fonts/ele.svg?baaho#ele') format('svg');
+  src:  url('../fonts/ele.eot?baaho');
+  src:  url('../fonts/ele.eot?baaho#iefix') format('embedded-opentype'),
+    url('../fonts/ele.ttf?baaho') format('truetype'),
+    url('../fonts/ele.woff?baaho') format('woff'),
+    url('../fonts/ele.svg?baaho#ele') format('svg');
   font-weight: normal;
   font-style: normal;
 }

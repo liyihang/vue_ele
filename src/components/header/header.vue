@@ -17,8 +17,19 @@
                     <span class="text">{{seller.supports[0].description}}</span>
                 </div>
             </div>
+            <div v-if="seller.supports" class="support-count">
+                <span class="count">{{seller.supports.length}}个</span>
+                <i class="icon-keyboard_arrow_right"></i>
+            </div>
         </div>
-        <div class="bulletin-wrapper"></div>
+        <div class="bulletin-wrapper">
+            <span class="bulletin-title"></span>
+            <span class="bulletin-text">{{seller.bulletin}}</span>
+            <i class="icon-keyboard_arrow_right"></i>
+        </div>
+        <div class="background">
+            <img :src="seller.avatar" alt="" width="100%" height="100%">
+        </div>
     </div>
 </template>
 <script>
@@ -36,11 +47,13 @@ export default {
 </script>
 
 <style>
+    @import '../../common/css/icon.css';
 .header {
-  color: aliceblue;
-  background-color: gray
+    position: relative;
+    color: aliceblue;
 }
 .content-wrapper {
+    position: relative;
     padding: 24px 12px 18px 24px;
     font-size: 0
 }
@@ -78,18 +91,77 @@ export default {
     line-height: 12px;
     margin-bottom: 10px;
 }
-.icon {
-    vertical-align: top;
+.support .icon {
     display: inline-block;
-    width: 12px;
+    width: 16px;
     height: 12px;
-    margin-right: 4px;
     background-size: 12px 12px;
     background-repeat: no-repeat;
     background-image: url('./decrease_1@2x.png')
 }
-.text {
+.support .text {
+    vertical-align: top;
     font-size: 10px;
-    line-height: 14px;
+    line-height: 12px;
+}
+.support-count {
+    position: absolute;
+    right: 12px;
+    bottom: 18px;
+    padding: 0 8px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 14px;
+    background-color: rgba(0,0,0, 0.2)
+}
+.count {
+    font-size: 10px;
+}
+.icon-keyboard_arrow_right {
+    line-height: 24px;
+    font-size: 10px;
+    padding-left: 2px;
+}
+.icon-keyboard_arrow_right:before {
+  content: "\e905";
+}
+.bulletin-wrapper {
+    position: relative;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 22px 0 12px;white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: rgba(7,17,27, 0.2)
+}
+.bulletin-title {
+    vertical-align: top;
+    display: inline-block;
+    width: 22px;
+    height: 12px;
+    background-image: url('./bulletin@2x.png');
+    background-size: 22px 12px;
+    background-repeat: no-repeat;
+    margin-top: 8px;
+}
+.bulletin-text {
+    vertical-align: top;
+    font-size: 10px;
+    margin-top: 4px;
+
+}
+.bulletin-wrapper .icon-keyboard_arrow_right {
+    position: absolute;
+    font-size: 10px;
+    right: 12px;
+}
+.background {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(15px)
 }
 </style>
