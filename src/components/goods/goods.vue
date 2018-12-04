@@ -1,6 +1,6 @@
 <template>
     <div class="goods-wrapper">
-        <div class="menu-wrapper" v-el:menu-wrapper>
+        <div class="menu-wrapper" ref="menuWrapper">
           <ul>
             <li v-for="(item,index) in goods" :key="index" class="menu-item">
               <span class="text">
@@ -9,7 +9,7 @@
             </li>
           </ul>
         </div>
-        <div class="food-wrapper" v-el:food-wrapper>
+        <div class="food-wrapper" ref="foodWrapper">
           <ul>
             <li v-for="(item,index) in goods" :key="index" class="food-list">
               <h1 class="title">{{item.name}}</h1>
@@ -66,8 +66,9 @@ export default {
   },
   methods: {
     _scrollInit () {
-      this.menuScroll = new BScroll(this.$els.menuWrapper, {})
-      this.foodScroll = new BScroll(this.$els.foodWrapper, {})
+      // 没有传递click 和type参数
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
+      this.foodScroll = new BScroll(this.$refs.foodWrapper, {})
     }
   }
 }
