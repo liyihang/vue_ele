@@ -7,10 +7,10 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      redirect: goods
-    },
+    // {
+    //   path: '/',
+    //   redirect: goods
+    // },
     {
       path: '/goods',
       component: goods

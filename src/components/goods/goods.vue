@@ -2,7 +2,7 @@
     <div class="goods-wrapper">
         <div class="menu-wrapper" ref="menuWrapper">
           <ul>
-            <li v-for="(item,index) in goods" :key="index" class="menu-item">
+            <li v-for="(item,index) in goods" :key="index" class="menu-item" :class="{'current':currentIndex==index}" @click="selectMenu(index)">
               <span class="text">
                 <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
                 </span>
@@ -11,7 +11,7 @@
         </div>
         <div class="food-wrapper" ref="foodWrapper">
           <ul>
-            <li v-for="(item,index) in goods" :key="index" class="food-list">
+            <li v-for="(item,index) in goods" :key="index" class="food-list food-list-hook" ref="foodList">
               <h1 class="title">{{item.name}}</h1>
               <ul>
                 <li v-for="(food,index) in item.foods" :key="index" class="food-item">
@@ -48,7 +48,9 @@ export default {
   },
   data () {
     return {
-      goods: []
+      goods: [],
+      listHeight: [],
+      scrollY: 0
     }
   },
   created () {
@@ -60,15 +62,51 @@ export default {
         this.goods = response.data
         this.$nextTick(() => {
           this._scrollInit()
+          this._calculateHeight()
         })
       }
     })
   },
+  computed: {
+    // 计算当前索引位置
+    currentIndex () {
+      for (let i = 0; i < this.listHeight.length; i++) {
+        let height1 = this.listHeight[i]
+        let height2 = this.listHeight[i + 1]
+        if (!height2 || (this.scrollY >= height1 && this.scrollY < height2)) {
+          return i
+        }
+      }
+      return 0
+    }
+  },
   methods: {
+    selectMenu (index) {
+      console.log(index)
+    },
     _scrollInit () {
       // 没有传递click 和type参数
-      this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
-      this.foodScroll = new BScroll(this.$refs.foodWrapper, {})
+      this.menuScroll = new BScroll(this.$refs.menuWrapper, {
+        click: true
+      })
+      this.foodScroll = new BScroll(this.$refs.foodWrapper, {
+        click: true,
+        probeType: 3
+      })
+      this.foodScroll.on('scroll', (pros) => {
+        this.scrollY = Math.abs(Math.round(pros.y))
+      })
+    },
+    // 计算高度
+    _calculateHeight () {
+      let foodList = this.$refs.foodList
+      let height = 0
+      this.listHeight.push(height)
+      for (let i = 0; i < foodList.length; i++) {
+        let item = foodList[i]
+        height += item.clientHeight
+        this.listHeight.push(height)
+      }
     }
   }
 }
@@ -125,6 +163,16 @@ export default {
   vertical-align: middle;
   font-size: 12px;
   border-bottom: 1px solid rgba(7, 17, 27,0.1)
+}
+.current {
+  position: relative;
+  margin-top: 1px;
+  z-index: 10;
+  background: #fff;
+  font-weight: 700
+}
+.current .text {
+  border: none
 }
 .food-wrapper {
   flex:1
