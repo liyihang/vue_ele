@@ -82,7 +82,9 @@ export default {
   },
   methods: {
     selectMenu (index) {
-      console.log(index)
+      let foodList = this.$refs.foodList
+      let el = foodList[index]
+      this.foodScroll.scrollToElement(el, 300)
     },
     _scrollInit () {
       // 没有传递click 和type参数
