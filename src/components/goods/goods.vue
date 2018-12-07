@@ -35,10 +35,12 @@
             </li>
           </ul>
         </div>
+        <cart></cart>
     </div>
 </template>
 <script>
 import BScroll from 'better-scroll'
+import cart from '../cart/cart'
 const ERROK = 0
 export default {
   props: {
@@ -52,6 +54,9 @@ export default {
       listHeight: [],
       scrollY: 0
     }
+  },
+  components: {
+    cart
   },
   created () {
     //   对应不同的图标，兼容写法
@@ -81,6 +86,7 @@ export default {
     }
   },
   methods: {
+    // 菜单分类选择
     selectMenu (index) {
       let foodList = this.$refs.foodList
       let el = foodList[index]
