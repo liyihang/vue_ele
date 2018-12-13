@@ -6,11 +6,13 @@
             <div class="logo">
                 <i class="icon-shopping_cart"></i>
             </div>
+            <div class="num">{{totalCount}}</div>
         </div>
-        <div class="price">￥0.0</div>
+        <div class="price">￥{{totalPrice}}</div>
         <div class="deliver">另需配送费{{deliveryPrice}}￥</div>
         </div>
         <div class="content-right">
+            <div class="pay">￥{{minPrice}}起送</div>
         </div>
     </div>
 </div>
@@ -18,6 +20,17 @@
 <script>
 export default {
   props: {
+    selecFoods: {
+      type: Array,
+      default () {
+        return [
+          {
+            price: 10,
+            count: 1
+          }
+        ]
+      }
+    },
     deliveryPrice: {
       type: Number,
       default: 0
@@ -25,6 +38,22 @@ export default {
     minPrice: {
       type: Number,
       count: 0
+    }
+  },
+  computed: {
+    totalPrice () {
+      let total = 0
+      this.selecFoods.forEach(food => {
+        total += food.price * food.count
+      })
+      return total
+    },
+    totalCount () {
+      let count = 0
+      this.selecFoods.forEach(food => {
+        count += food.count
+      })
+      return count
     }
   }
 }
@@ -64,6 +93,7 @@ export default {
     margin: 12px 0 0 12px;
     line-height: 24px;
     font-size: 10px;
+    color: rgba(255, 255, 255,0.4)
 }
 .content-left .logo-wrapper {
     display: inline-block;
@@ -97,5 +127,12 @@ export default {
     flex: 0 0 105px;
     width: 105px;
 }
-
+.pay {
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #2b333b;
+}
 </style>
