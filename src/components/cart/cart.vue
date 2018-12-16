@@ -3,16 +3,16 @@
     <div class="cart-content">
         <div class="content-left">
             <div class="logo-wrapper">
-            <div class="logo">
-                <i class="icon-shopping_cart"></i>
+            <div class="logo" :class="{'light':totalCount>0}">
+                <i class="icon-shopping_cart" :class="{'light':totalCount>0}"></i>
             </div>
-            <div class="num">{{totalCount}}</div>
+            <div class="num" v-show="totalCount>0">{{totalCount }}</div>
         </div>
-        <div class="price">￥{{totalPrice}}</div>
+        <div class="price" :class="{'highlight':totalCount>0}">￥{{totalPrice}}</div>
         <div class="deliver">另需配送费{{deliveryPrice}}￥</div>
         </div>
         <div class="content-right">
-            <div class="pay">￥{{minPrice}}起送</div>
+            <div class="pay">{{priceDesc}}</div>
         </div>
     </div>
 </div>
@@ -54,6 +54,16 @@ export default {
         count += food.count
       })
       return count
+    },
+    priceDesc () {
+      if (this.totalPrice === 0) {
+        return `￥${this.minPrice}员起送`
+      } else if (this.totalPrice < this.minPrice) {
+        let diff = this.minPrice - this.totalPrice
+        return `还差￥${diff}元起送`
+      } else {
+        return '去结算'
+      }
     }
   }
 }
@@ -87,6 +97,9 @@ export default {
     font-size: 16px;
     color: rgba(255, 255, 255,0.4)
 }
+.content-left .highlight {
+    color: #fff
+}
 .content-left .deliver {
     display: inline-block;
     vertical-align: top;
@@ -113,6 +126,9 @@ export default {
     color: #80858a;
     font-size: 24px;
 }
+ .light {
+    color: #fff
+}
 .icon-shopping_cart:before {
   content: "\e907";
 }
@@ -122,6 +138,24 @@ export default {
     text-align: center;
     border-radius: 50%;
     background: #2b343c;
+}
+.content-left .light {
+    background: rgb(0, 160, 220)
+}
+.logo-wrapper .num {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 16px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    background: rgb(240, 20, 20);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4)
 }
 .content-right {
     flex: 0 0 105px;
