@@ -12,7 +12,7 @@
         <div class="deliver">另需配送费{{deliveryPrice}}￥</div>
         </div>
         <div class="content-right">
-            <div class="pay">{{priceDesc}}</div>
+            <div class="pay" :class="payClass">{{priceDesc}}</div>
         </div>
     </div>
 </div>
@@ -26,7 +26,7 @@ export default {
         return [
           {
             price: 10,
-            count: 1
+            count: 10
           }
         ]
       }
@@ -63,6 +63,13 @@ export default {
         return `还差￥${diff}元起送`
       } else {
         return '去结算'
+      }
+    },
+    payClass () {
+      if (this.totalPrice < this.minPrice) {
+        return 'not-enough'
+      } else {
+        return 'enough'
       }
     }
   }
@@ -167,6 +174,12 @@ export default {
     text-align: center;
     font-size: 12px;
     font-weight: 700;
-    background-color: #2b333b;
+}
+.not-enough {
+  background-color: #2b333b;
+}
+.enough {
+  background: #00b43c;
+  color: #fff
 }
 </style>
