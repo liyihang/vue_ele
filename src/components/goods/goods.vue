@@ -202,7 +202,7 @@ export default {
 .food-item {
   display: flex;
   margin: 18px;
-  padding-bottom: 18px;
+  /* padding-bottom: 18px; */
   border-bottom: 1px solid rgba(7, 17, 27,0.1);
 }
 .food-item :last-child {
@@ -253,7 +253,7 @@ export default {
 }
 .cartcontrol-wrapper {
   position: relative;
-  right: 0;
+  left: 55%;
   bottom: 12px;
 }
 </style>
