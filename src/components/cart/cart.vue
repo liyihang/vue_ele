@@ -20,13 +20,13 @@
 <script>
 export default {
   props: {
-    selecFoods: {
+    selectFoods: {
       type: Array,
       default () {
         return [
           {
-            price: 10,
-            count: 10
+            price: 0,
+            count: 0
           }
         ]
       }
@@ -43,14 +43,14 @@ export default {
   computed: {
     totalPrice () {
       let total = 0
-      this.selecFoods.forEach(food => {
+      this.selectFoods.forEach(food => {
         total += food.price * food.count
       })
       return total
     },
     totalCount () {
       let count = 0
-      this.selecFoods.forEach(food => {
+      this.selectFoods.forEach(food => {
         count += food.count
       })
       return count
@@ -141,8 +141,9 @@ export default {
 }
 .content-left .logo {
     width: 100%;
-    width: 100%;
+    height: 100%;
     text-align: center;
+    margin: 0 auto;
     border-radius: 50%;
     background: #2b343c;
 }
